@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+/* Menggunakan selector untuk menyembunyikan input checkbox */
+.checkbox-wrapper-54 input[type="checkbox"] {
+  visibility: hidden;
+  display: none;
+}
+
+/* Pseudo-element untuk ikon bulat pada slider */
+.checkbox-wrapper-54 .slider:before {
+  content: "";
+  position: absolute;
+  height: var(--size-of-icon, 1.2rem);
+  width: var(--size-of-icon, 1.2rem);
+  border-radius: 50%;
+  left: var(--slider-offset, 0.3em);
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(40deg, #ff0080, #ff8c00 70%);
+  transition: 0.4s;
+}
+
+/* Saat checkbox dicentang, ubah latar belakang slider */
+.checkbox-wrapper-54 input:checked + .slider {
+  background-color: #303136;
+}
+
+/* Saat checkbox dicentang, ubah posisi dan gaya ikon slider */
+.checkbox-wrapper-54 input:checked + .slider:before {
+  left: calc(100% - (var(--size-of-icon, 1.4em) + var(--slider-offset, 0.3em)));
+  background: #303136;
+  box-shadow:
+    inset -3px -2px 5px -2px #8983f7,
+    inset -10px -4px 0 0 #a3dafb;
+}
+
+/* MOVIEEEE */
+.movie-list::-webkit-scrollbar {
+  display: none;
+}
