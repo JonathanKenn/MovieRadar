@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "flowbite";
 import Navbar from "../components/Navbar";
+import MovieListTrending from "../components/MovieListTrending";
 import MovieList from "../components/MovieList";
 const HomePage = () => {
   return (
-    <div className="h-[100rem]">
+    <div className="pb-96">
       <div
         id="default-carousel"
         className="relative w-full"
@@ -81,7 +82,11 @@ const HomePage = () => {
         </div>
       </div>
       <Navbar />
-      <MovieList />
+      <MovieListTrending title={"Trending"} category={"trending"} />
+      <MovieList title={"Popular"} category={"popular"} />
+      <MovieList title={"Now Playing"} category={"now_playing"} />
+      <MovieList title={"Top Rated"} category={"top_rated"} />
+      <MovieList title={"Upcoming"} category={"upcoming"} />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
-const MovieList = ({ title, category }) => {
-  const [apiData, setApiData] = useState([]);
+const MovieListTrending = ({ title }) => {
+  const [apiDataTrending, setApiDataTrending] = useState([]);
   const sliderRef = useRef(null); // Reference for the slider container
   const [isAtStart, setIsAtStart] = useState(true); // State untuk kondisi di awal scroll
   const [isAtEnd, setIsAtEnd] = useState(false); // State untuk kondisi di akhir scroll
@@ -18,11 +18,11 @@ const MovieList = ({ title, category }) => {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
+      "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
       options,
     )
       .then((res) => res.json())
-      .then((res) => setApiData(res.results))
+      .then((res) => setApiDataTrending(res.results))
       .catch((err) => console.error(err));
   });
 
@@ -98,7 +98,7 @@ const MovieList = ({ title, category }) => {
         ref={sliderRef}
         className="movie-list mb-3 flex gap-x-5 overflow-x-auto"
       >
-        {apiData.map((card, index) => (
+        {apiDataTrending.map((card, index) => (
           <Link
             to={`/movie/${card.id}`}
             key={index}
@@ -158,4 +158,4 @@ const MovieList = ({ title, category }) => {
   );
 };
 
-export default MovieList;
+export default MovieListTrending;

@@ -32,7 +32,8 @@ const Navbar = () => {
   }, [openSearch]);
 
   return (
-    <nav className="bg-white/7 sticky top-0 z-50 max-w-full px-4 py-3 text-secondary backdrop-blur-sm lg:px-20 lg:py-4">
+    // <nav className="sticky top-0 z-50 max-w-full bg-red-500 px-4 py-3 text-secondary backdrop-blur-sm lg:px-20 lg:py-4">
+    <nav className="sticky top-0 z-50 max-w-full bg-primary/20 px-4 py-3 text-secondary backdrop-blur-sm lg:px-24 lg:py-4">
       <div className="flex items-center gap-x-4 lg:gap-x-10">
         {/* Logo and Menu */}
         <h1 className="text-xl font-semibold lg:text-xl">
