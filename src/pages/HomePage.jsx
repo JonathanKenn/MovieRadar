@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "flowbite";
-import Navbar from "../components/Navbar";
-import MovieListTrending from "../components/MovieListTrending";
-import MovieList from "../components/MovieList";
+import Navbar from "../components/layout/Navbar";
+import MovieListTrending from "../components/movies/MovieListTrending";
+import MovieList from "../components/movies/MovieList";
+import Footer from "../components/layout/Footer";
 const HomePage = () => {
   return (
-    <div className="pb-96">
+    <div>
       <div
         id="default-carousel"
         className="relative w-full"
@@ -87,6 +88,7 @@ const HomePage = () => {
       <MovieList title={"Now Playing"} category={"now_playing"} />
       <MovieList title={"Top Rated"} category={"top_rated"} />
       <MovieList title={"Upcoming"} category={"upcoming"} />
+      <Footer />
     </div>
   );
 };

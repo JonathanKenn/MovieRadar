@@ -109,7 +109,7 @@ const MovieListTrending = ({ title }) => {
               alt={card.original_title}
             />
             <svg
-              className="absolute -left-2 -top-0.5 size-10 text-primary opacity-75 transition hover:opacity-100"
+              className="absolute -left-2 -top-0.5 size-10 text-[#24211E] opacity-75 transition hover:opacity-100"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
             >

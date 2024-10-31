@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import DarkToggle from "../elements/DarkToggle";
+import DarkToggle from "../../elements/DarkToggle";
 
 const Navbar = () => {
   const [openSearch, setOpenSearch] = useState(false);
@@ -41,7 +41,7 @@ const Navbar = () => {
             Movie<span className="font-bold text-theYellow">Radar</span>
           </p>
           <p className="block rounded-md bg-theYellow px-2 text-primary lg:hidden">
-            M<span className="font-bold">RR</span>
+            M<span className="font-bold">R</span>
           </p>
         </h1>
         <div className="flex items-center gap-1">
