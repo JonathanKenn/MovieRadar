@@ -7,6 +7,7 @@ import MovieCredits from "../components/movieDetail/MovieCrew";
 import MovieGenreDesc from "../components/movieDetail/MovieGenreDesc";
 import MovieCast from "../components/movieDetail/MovieCast";
 import Footer from "../components/layout/Footer";
+import DetailsMovie from "../components/movieDetail/DetailsMovie";
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -66,7 +67,7 @@ const MovieDetail = () => {
   return (
     <div>
       <Navbar />
-      <div className="relative px-6 py-4 lg:px-28">
+      <div className="relative px-4 py-4 lg:px-28">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-3xl"
           style={{
@@ -108,13 +109,25 @@ const MovieDetail = () => {
           <MovieCredits crew={crew} role="Writing" title="Writers" />
         </div>
       </div>
+
       {/* Cast */}
-      <div className="relative bg-secondary px-6 py-4 text-primary lg:px-28 lg:py-10">
+      <div className="relative bg-secondary px-6 py-10 text-primary lg:px-28">
         <div className="flex items-center gap-x-3">
-          <div className="h-9 w-1 rounded-full bg-theYellow"></div>
-          <h1 className="text-3xl font-semibold">Actors</h1>
+          <div className="h-7 w-1 rounded-full bg-theYellow lg:h-9"></div>
+          <h1 className="text-2xl font-semibold lg:text-3xl">Actors</h1>
         </div>
         <MovieCast credits={cast} role="Acting" />
+      </div>
+      <div className="bg-secondary px-6 py-4 text-primary lg:px-28 lg:py-10">
+        <div className="max-w-4xl">
+          <div className="flex items-center gap-x-3">
+            <div className="h-7 w-1 rounded-full bg-theYellow lg:h-9"></div>
+            <h1 className="text-2xl font-semibold lg:text-3xl">Details</h1>
+          </div>
+          <div className="py-7 font-medium">
+            <DetailsMovie details={apiDataMovie} />
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

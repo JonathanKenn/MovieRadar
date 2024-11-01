@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import DarkToggle from "../../elements/DarkToggle";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [openSearch, setOpenSearch] = useState(false);
@@ -36,15 +37,15 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 max-w-full bg-primary/20 px-4 py-3 text-secondary backdrop-blur-sm lg:px-24 lg:py-4">
       <div className="flex items-center gap-x-4 lg:gap-x-10">
         {/* Logo and Menu */}
-        <h1 className="text-xl font-semibold lg:text-xl">
+        <Link to="/home" className="text-xl font-semibold lg:text-xl">
           <p className="hidden lg:block">
             Movie<span className="font-bold text-theYellow">Radar</span>
           </p>
           <p className="block rounded-md bg-theYellow px-2 text-primary lg:hidden">
             M<span className="font-bold">R</span>
           </p>
-        </h1>
-        <div className="flex items-center gap-1">
+        </Link>
+        <div className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1.5 transition duration-200 hover:bg-secondary/10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -99,7 +100,7 @@ const Navbar = () => {
             </div>
             <button
               onClick={closeSearch}
-              className="absolute right-8 top-4 text-xl text-secondary"
+              className="absolute right-8 text-xl text-secondary"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +146,7 @@ const Navbar = () => {
           />
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex cursor-pointer items-center justify-center gap-1 rounded-lg px-2 py-1.5 transition duration-200 hover:bg-secondary/10">
           <svg
             className="size-8"
             viewBox="0 0 24 24"
@@ -155,7 +156,7 @@ const Navbar = () => {
             <path
               d="M12 13V7M9 10H15M19 21V7.8C19 6.11984 19 5.27976 18.673 4.63803C18.3854 4.07354 17.9265 3.6146 17.362 3.32698C16.7202 3 15.8802 3 14.2 3H9.8C8.11984 3 7.27976 3 6.63803 3.32698C6.07354 3.6146 5.6146 4.07354 5.32698 4.63803C5 5.27976 5 6.11984 5 7.8V21L12 17L19 21Z"
               stroke="black"
-              strokeWidth="2"
+              strokeWidth="1"
               strokeLinecap="round"
               strokeLinejoin="round"
             />

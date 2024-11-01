@@ -7,16 +7,16 @@ const MovieHeader = ({ title, releaseDate, runtime, adult, tagline }) => {
   };
 
   return (
-    <div className="relative mb-3 flex items-end justify-between">
+    <div className="relative mb-3 items-end justify-between lg:flex">
       <div>
-        <h1 className="mb-1.5 text-4xl font-semibold">{title}</h1>
+        <h1 className="mb-1.5 text-3xl font-semibold lg:text-4xl">{title}</h1>
         <span className="flex gap-x-1.5 text-sm font-medium text-theGray">
           <p>{releaseDate ? formatReleaseDate(releaseDate) : "Release Date"}</p>
           |<p>{runtime ? `${runtime} Minutes` : "Runtime"}</p>|
           <p>{adult ? "R" : "PG"}</p>
         </span>
       </div>
-      <div>
+      <div className="hidden lg:block">
         <p className="text-sm font-medium text-theGray drop-shadow-2xl">
           Tagline
         </p>

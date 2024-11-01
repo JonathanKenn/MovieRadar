@@ -11,9 +11,9 @@ const MovieInfo = ({
   budget,
 }) => {
   return (
-    <div className="relative flex max-w-full gap-x-3 overflow-hidden">
+    <div className="relative grid max-w-full grid-cols-7 gap-3 overflow-hidden lg:flex">
       <img
-        className="w-[19rem] rounded-lg"
+        className="poster-img order-2 col-start-1 col-end-4 w-full rounded-lg lg:order-none lg:w-[19rem]"
         src={`https://image.tmdb.org/t/p/w500${posterPath}`}
         alt={title}
       />
@@ -33,14 +33,15 @@ const MovieInfo = ({
           strokeWidth={0.7}
         ></path>
       </svg>
+
       <iframe
-        className="w-8/12 rounded-lg"
+        className="order-1 col-span-7 h-56 w-full rounded-lg lg:order-none lg:h-[28rem] lg:w-8/12"
         allowFullScreen
         src={`https://www.youtube.com/embed/${trailerKey}`}
       ></iframe>
 
-      <div className="font-medium">
-        <div className="mb-3">
+      <div className="spek-movie order-3 col-start-4 col-end-7 font-medium lg:order-none">
+        <div className="mb-2 lg:mb-3">
           <p className="text-sm text-theGray">Rating ({voteCount})</p>
           <span className="flex text-theYellow">
             <svg
@@ -60,17 +61,17 @@ const MovieInfo = ({
             </p>
           </span>
         </div>
-        <div className="mb-3">
+        <div className="mb-2 lg:mb-3">
           <p className="text-sm text-theGray">Status</p>
           <p className="text-lg text-white">{status}</p>
         </div>
-        <div className="mb-3">
+        <div className="mb-2 lg:mb-3">
           <p className="text-sm text-theGray">Popularity</p>
           <p className="text-lg text-white">
             {parseFloat(popularity).toFixed(1)}
           </p>
         </div>
-        <div className="mb-3">
+        <div className="mb-2 lg:mb-3">
           <p className="text-sm text-theGray">Budget</p>
           <p className="text-lg text-white">
             {budget ? `$${budget.toLocaleString("en-US")}` : "N/A"}

@@ -2,9 +2,9 @@ import React from "react";
 
 const MovieGenreDesc = ({ genres, overview }) => {
   return (
-    <div className="relative mt-4 flex max-w-6xl justify-between font-medium">
+    <div className="relative mt-4 max-w-6xl justify-between font-medium lg:flex">
       <div className="max-w-4xl">
-        <div className="flex gap-x-3">
+        <div className="my-4 flex flex-wrap gap-3 lg:my-0">
           {genres?.map((genre) => (
             <p
               className="rounded-full border border-theGray px-4 py-1 text-sm"
@@ -15,11 +15,11 @@ const MovieGenreDesc = ({ genres, overview }) => {
           ))}
         </div>
         <div className="my-2">
-          <p className="font-normal">{overview}</p>
+          <p className="text-sm font-normal lg:text-base">{overview}</p>
         </div>
       </div>
-      <div>
-        <button className="flex items-center gap-x-2 rounded-full bg-theYellow px-7 py-2 text-primary hover:bg-[#bb9c41]">
+      <div className="my-4 lg:my-0">
+        <button className="flex w-full items-center justify-center gap-x-2 rounded-full bg-theYellow px-7 py-3 text-primary hover:bg-[#bb9c41] lg:py-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

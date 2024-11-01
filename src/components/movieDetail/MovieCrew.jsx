@@ -17,8 +17,8 @@ const MovieCrew = ({ title, crew, role }) => {
     .filter(Boolean); // Menghapus nilai null dari array
 
   return (
-    <div className="flex border-t border-t-theGray py-2">
-      <p className="mr-5 font-semibold">{title}:</p>
+    <div className="flex border-t border-t-theGray py-4 text-sm lg:py-3 lg:text-base">
+      <p className="mr-5 font-semibold">{title}</p>
       {/* Gabungkan nama-nama dengan tanda ~ */}
       <span className="font-medium text-[#5699f0]">
         {uniqueNames.join(" ~ ")}
