@@ -9,7 +9,7 @@ import MovieCast from "../components/movieDetail/MovieCast";
 import Footer from "../components/layout/Footer";
 import DetailsMovie from "../components/movieDetail/DetailsMovie";
 
-const MovieDetail = () => {
+const MovieDetailPage = () => {
   const { id } = useParams();
   const [apiDataTrailer, setApiDataTrailer] = useState({});
   const [apiDataMovie, setApiDataMovie] = useState({});
@@ -62,7 +62,7 @@ const MovieDetail = () => {
     };
 
     fetchData();
-  }, [id]); // Menjalankan useEffect ketika id berubah
+  }); // Menjalankan useEffect ketika id berubah
 
   return (
     <div>
@@ -134,4 +134,4 @@ const MovieDetail = () => {
   );
 };
 
-export default MovieDetail;
+export default MovieDetailPage;

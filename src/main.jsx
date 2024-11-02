@@ -8,12 +8,18 @@ import {
 } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import ErrorPage from "./pages/404.jsx";
-import MovieDetail from "./pages/MovieDetail.jsx";
+import MovieDetail from "./pages/MovieDetailPage.jsx";
+import AllMovieCategoryPage from "./pages/AllMovieCategoryPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/home" replace />,
+    element: <Navigate to="/home" />,
+  },
+  {
+    path: "/movies/:category",
+    element: <AllMovieCategoryPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/home",

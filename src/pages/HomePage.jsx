@@ -1,7 +1,6 @@
 import React from "react";
 import "flowbite";
 import Navbar from "../components/layout/Navbar";
-import MovieListTrending from "../components/movies/MovieListTrending";
 import MovieList from "../components/movies/MovieList";
 import Footer from "../components/layout/Footer";
 const HomePage = () => {
@@ -83,7 +82,7 @@ const HomePage = () => {
         </div>
       </div>
       <Navbar />
-      <MovieListTrending title={"Trending"} category={"trending"} />
+      <MovieList title={"Trending"} category={"trending"} />
       <MovieList title={"Popular"} category={"popular"} />
       <MovieList title={"Now Playing"} category={"now_playing"} />
       <MovieList title={"Top Rated"} category={"top_rated"} />

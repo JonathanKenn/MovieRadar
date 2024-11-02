@@ -17,10 +17,11 @@ const MovieList = ({ title, category }) => {
   };
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
-      options,
-    )
+    const url =
+      category === "trending"
+        ? "https://api.themoviedb.org/3/trending/movie/day?language=en-US"
+        : `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`;
+    fetch(url, options)
       .then((res) => res.json())
       .then((res) => setApiData(res.results))
       .catch((err) => console.error(err));
@@ -70,7 +71,9 @@ const MovieList = ({ title, category }) => {
 
   return (
     <div className="relative px-6 py-4 lg:px-28">
-      <h1 className="mb-5 text-xl font-medium">{title}</h1>
+      <Link to={`/movies/${category}`}>
+        <h2 className="mb-3 text-xl font-medium">{title}</h2>
+      </Link>
       {/* movie section */}
       {!isAtStart && ( // Tampilkan tombol jika tidak di posisi awal
         <button
