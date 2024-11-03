@@ -37,15 +37,15 @@ const AllMovieCategoryPage = ({ title }) => {
   return (
     <div>
       <Navbar />
-      <div className="px-6 py-4 lg:px-28">
+      <div className="px-3.5 py-4 lg:px-28">
         <div className="mb-6 flex items-center gap-x-3">
           <div className="h-7 w-1 rounded-full bg-theYellow lg:h-9"></div>
           <h1 className="text-3xl font-semibold">{formatCategory(category)}</h1>
         </div>
 
-        <div className="mb-3 grid grid-cols-2 justify-center justify-items-center gap-5 md:grid-cols-4 lg:grid-cols-12">
+        <div className="mb-3 grid grid-cols-4 justify-center justify-items-center gap-x-2 gap-y-6 md:grid-cols-8 lg:grid-cols-12 lg:gap-3.5">
           {movies.map((card, index) => (
-            <div key={index} className="col-span-2 rounded-b-xl bg-[#1a1a1a]">
+            <div key={index} className="col-span-2 rounded-b-lg bg-[#1a1a1a]">
               <Link
                 to={`/movie/${card.id}`}
                 className="relative max-w-36 cursor-pointer overflow-hidden bg-slate-200 lg:max-w-full"
@@ -91,13 +91,13 @@ const AllMovieCategoryPage = ({ title }) => {
                     </p>
                   </span>
                 </div>
-                <div className="mb-7">
+                <div className="mb-1 h-14">
                   <Link
                     to={`/movie/${card.id}`}
                     className="text-base font-semibold hover:underline"
                   >
-                    {card.original_title.length > 18
-                      ? card.original_title.substring(0, 18) + "..."
+                    {card.original_title.length > 40
+                      ? card.original_title.substring(0, 40) + "..."
                       : card.original_title}
                   </Link>
                 </div>

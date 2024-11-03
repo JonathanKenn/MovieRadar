@@ -4,8 +4,14 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [openSearch, setOpenSearch] = useState(false);
-  const searchRef = useRef(null); // Create a ref for the search overlay
+  const [openMenu, setOpenMenu] = useState(false);
+  const searchRef = useRef(null);
+  const menuRef = useRef(null);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => !prev);
+  };
   const handleSearch = () => {
     setOpenSearch(!openSearch);
   };
@@ -14,27 +20,36 @@ const Navbar = () => {
     setOpenSearch(false);
   };
 
+  const handleMenu = () => {
+    setOpenMenu(!openMenu);
+    console.log(openMenu);
+  };
+
+  const closeMenu = () => {
+    setOpenMenu(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        closeMenu();
+      }
       if (searchRef.current && !searchRef.current.contains(event.target)) {
-        closeSearch(); // Close search if clicked outside
+        closeSearch();
       }
     };
 
-    if (openSearch) {
+    if (openSearch || openMenu) {
       document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [openSearch]);
+  }, [openSearch, openMenu]);
 
   return (
-    // <nav className="sticky top-0 z-50 max-w-full bg-red-500 px-4 py-3 text-secondary backdrop-blur-sm lg:px-20 lg:py-4">
-    <nav className="sticky top-0 z-50 max-w-full bg-primary/20 px-4 py-3 text-secondary backdrop-blur-sm lg:px-24 lg:py-4">
+    <nav className="sticky top-0 z-50 max-w-full bg-primary/20 px-4 py-3 text-secondary backdrop-blur-sm lg:px-24 lg:py-2">
       <div className="flex items-center gap-x-4 lg:gap-x-10">
         {/* Logo and Menu */}
         <Link to="/home" className="text-xl font-semibold lg:text-xl">
@@ -45,7 +60,11 @@ const Navbar = () => {
             M<span className="font-bold">R</span>
           </p>
         </Link>
-        <div className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1.5 transition duration-200 hover:bg-secondary/10">
+
+        <button
+          onClick={handleMenu} // Toggle menu
+          className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1.5 transition duration-200 hover:bg-secondary/10"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -61,7 +80,112 @@ const Navbar = () => {
             />
           </svg>
           <p className="hidden font-semibold lg:block">Menu</p>
-        </div>
+        </button>
+
+        {/* Dropdown Menu */}
+        {openMenu && (
+          <div
+            ref={menuRef}
+            className="absolute left-64 top-14 rounded-lg bg-[#1a1a1a] text-sm tracking-wide text-white shadow-md"
+          >
+            <div className="p-4">
+              <div className="mb-3 flex items-center gap-x-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="size-6 text-theYellow"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625Zm1.5 0v1.5c0 .207.168.375.375.375h1.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-1.5A.375.375 0 0 0 3 5.625Zm16.125-.375a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5A.375.375 0 0 0 21 7.125v-1.5a.375.375 0 0 0-.375-.375h-1.5ZM21 9.375A.375.375 0 0 0 20.625 9h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 0 0 .375-.375v-1.5ZM4.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5ZM3.375 15h1.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h1.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 4.875 9h-1.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Zm4.125 0a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+
+                <h2 className="text-base font-bold">Movies</h2>
+              </div>
+              <ul
+                className="ml-8 space-y-3 text-start font-medium"
+                aria-labelledby="mega-menu-dropdown-button"
+              >
+                <li>
+                  <a href="#" className="hover:underline">
+                    Trending
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Popular
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Now Playing
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Top Rated
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Upcoming
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="p-4">
+              <div className="mb-3 flex items-center gap-x-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="size-6 text-theYellow"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625Zm1.5 0v1.5c0 .207.168.375.375.375h1.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-1.5A.375.375 0 0 0 3 5.625Zm16.125-.375a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5A.375.375 0 0 0 21 7.125v-1.5a.375.375 0 0 0-.375-.375h-1.5ZM21 9.375A.375.375 0 0 0 20.625 9h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 0 0 .375-.375v-1.5ZM4.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h1.5ZM3.375 15h1.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-1.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h1.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 4.875 9h-1.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Zm4.125 0a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+
+                <h2 className="text-base font-bold">Movies</h2>
+              </div>
+              <ul
+                className="ml-8 space-y-3 text-start font-medium"
+                aria-labelledby="mega-menu-dropdown-button"
+              >
+                <li>
+                  <a href="#" className="hover:underline">
+                    Trending
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Popular
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Now Playing
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Top Rated
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Upcoming
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
 
         {/* Mobile Search Button */}
         <button
