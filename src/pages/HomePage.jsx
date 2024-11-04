@@ -10,6 +10,7 @@ const HomePage = () => {
         id="default-carousel"
         className="relative w-full"
         data-carousel="slide"
+        data-carousel-autoplay="true"
       >
         <div className="relative h-48 overflow-hidden rounded-lg md:min-h-80 lg:min-h-[34rem]">
           <div className="duration-700 ease-in-out" data-carousel-item>
