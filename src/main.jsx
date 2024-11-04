@@ -14,7 +14,7 @@ import AllMovieCategoryPage from "./pages/AllMovieCategoryPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/home" />,
+    element: <Navigate to="/home" replace />,
   },
   {
     path: "/movies/:category",
