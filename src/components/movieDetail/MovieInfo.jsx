@@ -74,7 +74,7 @@ const MovieInfo = ({
         <div className="mb-2 lg:mb-3">
           <p className="text-sm text-theGray">Budget</p>
           <p className="text-lg text-white">
-            {budget ? `$${budget.toLocaleString("en-US")}` : "N/A"}
+            {budget ? `$${budget.toLocaleString("en-US")}` : "-"}
           </p>
         </div>
       </div>

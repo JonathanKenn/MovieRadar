@@ -8,6 +8,7 @@ import MovieGenreDesc from "../components/movieDetail/MovieGenreDesc";
 import MovieCast from "../components/movieDetail/MovieCast";
 import Footer from "../components/layout/Footer";
 import DetailsMovie from "../components/movieDetail/DetailsMovie";
+import axios from "axios";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -26,43 +27,38 @@ const MovieDetailPage = () => {
   };
 
   useEffect(() => {
-    // Fetch movie details, video, and credits
-    const fetchData = async () => {
-      try {
-        // Fetch movie details
-        const movieRes = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
-          options,
-        );
-        const movieData = await movieRes.json();
-        setApiDataMovie(movieData);
+    // Mendapatkan data film, trailer, dan kredit
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
+      .then((movieRes) => {
+        setApiDataMovie(movieRes.data);
+      })
+      .catch((error) => console.error(error));
 
-        // Fetch movie video
-        const videoRes = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
-          options,
-        );
-        const videoData = await videoRes.json();
-        const trailer = videoData.results.find(
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+        options,
+      )
+      .then((videoRes) => {
+        const trailer = videoRes.data.results.find(
           (video) => video.type === "Trailer",
         );
         setApiDataTrailer(trailer);
+      })
+      .catch((error) => console.error(error));
 
-        // Fetch movie credits
-        const creditsRes = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
-          options,
-        );
-        const creditsData = await creditsRes.json();
-        setCast(creditsData.cast); // Menyimpan cast data
-        setCrew(creditsData.crew); // Menyimpan crew data
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchData();
-  }); // Menjalankan useEffect ketika id berubah
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+        options,
+      )
+      .then((creditsRes) => {
+        setCast(creditsRes.data.cast);
+        setCrew(creditsRes.data.crew);
+      })
+      .catch((error) => console.error(error));
+  });
 
   return (
     <div>

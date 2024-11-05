@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import axios from "axios";
 
-const AllMovieCategoryPage = ({ title }) => {
+const AllMovieCategoryPage = () => {
   const { category } = useParams();
   const [movies, setMovies] = useState([]);
 
@@ -28,10 +29,10 @@ const AllMovieCategoryPage = ({ title }) => {
       category === "trending"
         ? "https://api.themoviedb.org/3/trending/movie/day?language=en-US"
         : `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`;
-    fetch(url, options)
-      .then((response) => response.json())
-      .then((data) => setMovies(data.results))
-      .catch((error) => console.error(error));
+    axios
+      .get(url, options)
+      .then((res) => setMovies(res.data.results))
+      .catch((err) => console.error(err));
   });
 
   return (
@@ -101,7 +102,7 @@ const AllMovieCategoryPage = ({ title }) => {
                       : card.original_title}
                   </Link>
                 </div>
-                <button className="mb-1 flex w-full cursor-pointer items-center justify-center gap-1 rounded-full bg-secondary/10 px-2 py-2 text-sm font-medium transition duration-200 hover:bg-secondary/20">
+                <button className="mb-1.5 flex w-full cursor-pointer items-center justify-center gap-1 rounded-full bg-secondary/10 px-2 py-2 text-sm font-medium transition duration-200 hover:bg-secondary/20">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -117,9 +118,9 @@ const AllMovieCategoryPage = ({ title }) => {
 
                   <p className="hidden lg:block">Watchlist</p>
                 </button>
-                <button className="w-full cursor-pointer rounded-full px-2 py-2 text-sm hover:bg-secondary/5">
-                  View Details
-                </button>
+                <p className="w-full cursor-pointer rounded-full px-2 py-2 text-center text-sm hover:bg-secondary/5">
+                  <Link to={`/movie/${card.id}`}>View Details</Link>
+                </p>
               </div>
             </div>
           ))}
