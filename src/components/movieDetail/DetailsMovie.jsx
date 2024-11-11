@@ -20,6 +20,7 @@ const DetailsMovie = ({ details }) => {
   const formatHomepage = (url) => {
     return url.replace(/^https?:\/\/(www\.)?/, "");
   };
+
   return (
     <div className="text-sm lg:text-base">
       <div className="flex border-t border-t-theGray py-3">

@@ -63,7 +63,7 @@ const MovieDetailPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="relative px-4 py-4 lg:px-28">
+      <div className="relative px-4 py-4 lg:px-24">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-3xl"
           style={{

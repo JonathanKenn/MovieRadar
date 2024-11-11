@@ -4,6 +4,8 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import axios from "axios";
 
+import AddWatchlistSvg from "../elements/AddWatchlistSvg";
+
 const AllMovieCategoryPage = () => {
   const { category } = useParams();
   const [movies, setMovies] = useState([]);
@@ -46,32 +48,23 @@ const AllMovieCategoryPage = () => {
 
         <div className="mb-3 grid grid-cols-4 justify-center justify-items-center gap-x-2 gap-y-6 md:grid-cols-8 lg:grid-cols-12 lg:gap-3.5">
           {movies.map((card, index) => (
-            <div key={index} className="col-span-2 rounded-b-lg bg-[#1a1a1a]">
-              <Link
-                to={`/movie/${card.id}`}
-                className="relative max-w-36 cursor-pointer overflow-hidden bg-slate-200 lg:max-w-full"
-              >
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${card.poster_path}`}
-                  alt={card.original_title}
-                />
-                <svg
-                  className="absolute -left-2 -top-0.5 size-10 text-[#24211E] opacity-75 transition hover:opacity-100"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
+            <div
+              key={index}
+              className="col-span-2 overflow-hidden rounded-b-lg bg-[#1a1a1a]"
+            >
+              <div className="relative">
+                <AddWatchlistSvg value={12} />
+                <Link
+                  to={`/movie/${card.id}`}
+                  className="max-w-36 cursor-pointer bg-slate-200 lg:max-w-full"
                 >
-                  <path
-                    fill="currentColor"
-                    d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5"
-                  ></path>
-                  <path
-                    fill="currentColor"
-                    d="M8.5 4a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5z"
-                    stroke="white"
-                    strokeWidth={0.8}
-                  ></path>
-                </svg>
-              </Link>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${card.poster_path}`}
+                    alt={card.original_title}
+                  />
+                </Link>
+              </div>
+
               <div className="px-3 py-3">
                 <div className="mb-1 flex items-center font-medium">
                   <span className="flex text-theYellow">
@@ -97,8 +90,8 @@ const AllMovieCategoryPage = () => {
                     to={`/movie/${card.id}`}
                     className="text-base font-semibold hover:underline"
                   >
-                    {card.original_title.length > 40
-                      ? card.original_title.substring(0, 40) + "..."
+                    {card.original_title.length > 34
+                      ? card.original_title.substring(0, 34) + "..."
                       : card.original_title}
                   </Link>
                 </div>
@@ -116,7 +109,7 @@ const AllMovieCategoryPage = () => {
                     />
                   </svg>
 
-                  <p className="hidden lg:block">Watchlist</p>
+                  <p>Watchlist</p>
                 </button>
                 <p className="w-full cursor-pointer rounded-full px-2 py-2 text-center text-sm hover:bg-secondary/5">
                   <Link to={`/movie/${card.id}`}>View Details</Link>

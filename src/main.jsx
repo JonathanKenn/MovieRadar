@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage.jsx";
 import ErrorPage from "./pages/404.jsx";
 import MovieDetail from "./pages/MovieDetailPage.jsx";
 import AllMovieCategoryPage from "./pages/AllMovieCategoryPage.jsx";
+import WatchlistPage from "./pages/WatchlistPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
     path: "/movie/:id",
     errorElement: <ErrorPage />,
     element: <MovieDetail />,
+  },
+  {
+    path: "/watchlist",
+    errorElement: <ErrorPage />,
+    element: <WatchlistPage />,
   },
 ]);
 

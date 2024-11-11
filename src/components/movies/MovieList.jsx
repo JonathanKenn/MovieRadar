@@ -2,11 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
+import AddWatchlistSvg from "../../elements/AddWatchlistSvg";
+
 const MovieList = ({ title, category }) => {
   const [apiData, setApiData] = useState([]);
-  const sliderRef = useRef(null); // Reference for the slider container
-  const [isAtStart, setIsAtStart] = useState(true); // State untuk kondisi di awal scroll
-  const [isAtEnd, setIsAtEnd] = useState(false); // State untuk kondisi di akhir scroll
+  const sliderRef = useRef(null);
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+  const [watchlist, setWatchlist] = useState([]);
 
   const options = {
     method: "GET",
@@ -70,6 +73,24 @@ const MovieList = ({ title, category }) => {
     };
   });
 
+  useEffect(() => {
+    const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+    setWatchlist(savedWatchlist);
+  }, [watchlist]); // Load hanya sekali saat pertama kali render
+
+  const addToWatchlist = (movie) => {
+    // Cek apakah movie sudah ada di watchlist
+    const isAlreadyInWatchlist = watchlist.some((item) => item.id === movie.id);
+
+    if (!isAlreadyInWatchlist) {
+      const updatedWatchlist = [...watchlist, movie];
+      setWatchlist(updatedWatchlist);
+      localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
+    } else {
+      alert("Movie sudah ada di watchlist.");
+    }
+  };
+
   return (
     <div className="relative px-6 py-4 lg:px-28">
       <Link to={`/movies/${category}`}>
@@ -100,40 +121,26 @@ const MovieList = ({ title, category }) => {
         </button>
       )}
 
-      <div
-        ref={sliderRef}
-        className="movie-list mb-3 flex gap-x-5 overflow-x-auto"
-      >
+      <div ref={sliderRef} className="movie-list flex gap-x-5 overflow-x-auto">
         {apiData.map((card, index) => (
-          <Link
-            to={`/movie/${card.id}`}
+          <div
             key={index}
-            className="group relative max-w-36 flex-shrink-0 cursor-pointer overflow-hidden bg-slate-200 lg:max-w-48"
+            className="group relative max-w-36 flex-shrink-0 cursor-pointer overflow-hidden lg:max-w-52"
           >
-            <img
-              src={`https://image.tmdb.org/t/p/w500${card.poster_path}`}
-              alt={card.original_title}
+            <AddWatchlistSvg
+              value={12}
+              onAddWatchlist={() => addToWatchlist(card)}
             />
-            <svg
-              className="absolute -left-2 -top-0.5 size-10 text-[#24211E] opacity-75 transition hover:opacity-100"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill="currentColor"
-                d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5"
-              ></path>
-              <path
-                fill="currentColor"
-                d="M8.5 4a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5z"
-                stroke="white"
-                strokeWidth={0.8}
-              ></path>
-            </svg>
+            <Link to={`/movie/${card.id}`}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${card.poster_path}`}
+                alt={card.original_title}
+              />
+            </Link>
             <figcaption className="absolute -bottom-14 w-full bg-gradient-to-t from-primary to-primary/50 py-1.5 text-center font-medium transition-all duration-200 group-hover:bottom-0">
               {card.original_title}
             </figcaption>
-          </Link>
+          </div>
         ))}
       </div>
 

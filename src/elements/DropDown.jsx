@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Dropdown = ({ title, icon, items }) => {
+const Dropdown = ({ title, icon, items, handleMenu }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -16,9 +16,13 @@ const Dropdown = ({ title, icon, items }) => {
       <ul className="ml-8 hidden space-y-4 text-start font-medium lg:block">
         {items.map((item, index) => (
           <li key={index}>
-            <a href={item.link} className="hover:underline">
+            <Link
+              onClick={handleMenu}
+              to={item.link}
+              className="hover:underline"
+            >
               {item.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -47,11 +51,16 @@ const Dropdown = ({ title, icon, items }) => {
           </svg>
         </div>
         {isOpen && (
-          <ul className="mt-5 space-y-4 text-start font-medium lg:hidden">
+          <ul className="mt-5 space-y-2 text-start font-medium lg:hidden">
             {items.map((item, index) => (
-              <li key={index} className="flex pl-8 hover:bg-secondary/10">
-                <Link to={item.link}>{item.label}</Link>
-              </li>
+              <Link
+                onClick={handleMenu}
+                to={item.link}
+                key={index}
+                className="flex py-2 pl-8 hover:bg-secondary/10"
+              >
+                {item.label}
+              </Link>
             ))}
           </ul>
         )}

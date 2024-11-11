@@ -219,6 +219,7 @@ const Navbar = () => {
                       title={menu.title}
                       icon={menu.icon}
                       items={menu.items}
+                      handleMenu={handleMenu}
                     />
                   ))}
                   <div className="mt-10 block pb-5 lg:hidden">
@@ -316,7 +317,10 @@ const Navbar = () => {
           />
         </div>
 
-        <div className="flex cursor-pointer items-center justify-center gap-1 rounded-lg px-2 py-1.5 transition duration-200 hover:bg-secondary/10">
+        <Link
+          to={"/watchlist"}
+          className="flex cursor-pointer items-center justify-center gap-1 rounded-lg px-2 py-1.5 transition duration-200 hover:bg-secondary/10"
+        >
           <svg
             className="size-7"
             viewBox="0 0 24 24"
@@ -332,7 +336,7 @@ const Navbar = () => {
             />
           </svg>
           <p className="hidden lg:block">Watchlist</p>
-        </div>
+        </Link>
         <DarkToggle />
       </div>
     </nav>
