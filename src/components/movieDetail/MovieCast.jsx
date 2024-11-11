@@ -19,7 +19,7 @@ const MovieCast = ({ credits, role }) => {
               alt={`${actor.name} profile`}
               className="size-24 rounded-full object-cover"
             />
-            <div className="text-center">
+            <div>
               <h2 className="text-base font-semibold lg:text-lg">
                 {actor.name}
               </h2>

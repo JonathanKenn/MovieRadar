@@ -9,6 +9,7 @@ import AddWatchlistSvg from "../elements/AddWatchlistSvg";
 const AllMovieCategoryPage = () => {
   const { category } = useParams();
   const [movies, setMovies] = useState([]);
+  const [watchlist, setWatchlist] = useState([]);
 
   const formatCategory = (category) => {
     return category
@@ -37,6 +38,24 @@ const AllMovieCategoryPage = () => {
       .catch((err) => console.error(err));
   });
 
+  useEffect(() => {
+    const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+    setWatchlist(savedWatchlist);
+  }, [watchlist]); // Load hanya sekali saat pertama kali render
+
+  const addToWatchlist = (movie) => {
+    // Cek apakah movie sudah ada di watchlist
+    const isAlreadyInWatchlist = watchlist.some((item) => item.id === movie.id);
+
+    if (!isAlreadyInWatchlist) {
+      const updatedWatchlist = [...watchlist, movie];
+      setWatchlist(updatedWatchlist);
+      localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
+    } else {
+      alert("Movie sudah ada di watchlist.");
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -53,7 +72,10 @@ const AllMovieCategoryPage = () => {
               className="col-span-2 overflow-hidden rounded-b-lg bg-[#1a1a1a]"
             >
               <div className="relative">
-                <AddWatchlistSvg value={12} />
+                <AddWatchlistSvg
+                  value={12}
+                  onAddWatchlist={() => addToWatchlist(card)}
+                />
                 <Link
                   to={`/movie/${card.id}`}
                   className="max-w-36 cursor-pointer bg-slate-200 lg:max-w-full"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import AddWatchlistSvg from "../../elements/AddWatchlistSvg";
 
@@ -12,6 +12,26 @@ const MovieInfo = ({
   popularity,
   budget,
 }) => {
+  const [watchlist, setWatchlist] = useState([]);
+
+  useEffect(() => {
+    const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+    setWatchlist(savedWatchlist);
+  }, [watchlist]); // Load hanya sekali saat pertama kali render
+
+  const addToWatchlist = (movie) => {
+    // Cek apakah movie sudah ada di watchlist
+    const isAlreadyInWatchlist = watchlist.some((item) => item.id === movie.id);
+
+    if (!isAlreadyInWatchlist) {
+      const updatedWatchlist = [...watchlist, movie];
+      setWatchlist(updatedWatchlist);
+      localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
+    } else {
+      alert("Movie sudah ada di watchlist.");
+    }
+  };
+
   return (
     <div className="relative grid max-w-full grid-cols-7 gap-3 overflow-hidden lg:flex">
       <img
@@ -20,7 +40,7 @@ const MovieInfo = ({
         alt={title}
       />
 
-      <AddWatchlistSvg value={14} />
+      {/* <AddWatchlistSvg value={14} onAddWatchlist={() => addToWatchlist(card)} /> */}
 
       <iframe
         className="order-1 col-span-7 h-56 w-full rounded-lg lg:order-none lg:h-[28rem] lg:w-8/12"
