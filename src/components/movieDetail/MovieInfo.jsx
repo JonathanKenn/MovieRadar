@@ -17,7 +17,7 @@ const MovieInfo = ({
   useEffect(() => {
     const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
     setWatchlist(savedWatchlist);
-  }, [watchlist]); // Load hanya sekali saat pertama kali render
+  }, [watchlist]);
 
   const addToWatchlist = (movie) => {
     // Cek apakah movie sudah ada di watchlist
@@ -40,7 +40,7 @@ const MovieInfo = ({
         alt={title}
       />
 
-      {/* <AddWatchlistSvg value={14} onAddWatchlist={() => addToWatchlist(card)} /> */}
+      {/* <AddWatchlistSvg value={14} onAddWatchlist={() => addToWatchlist} /> */}
 
       <iframe
         className="order-1 col-span-7 h-56 w-full rounded-lg lg:order-none lg:h-[28rem] lg:w-8/12"

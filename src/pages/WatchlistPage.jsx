@@ -27,12 +27,12 @@ const WatchlistPage = () => {
           <div className="h-7 w-1 rounded-full bg-theYellow lg:h-9"></div>
           <h1 className="text-3xl font-semibold">My Watchlist</h1>
         </div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {watchlist.length > 0 ? (
             watchlist.map((movie, index) => (
               <div
                 key={index}
-                className="flex h-64 items-center gap-x-3 rounded-xl border border-theGray p-3"
+                className="flex h-48 items-center gap-x-3 rounded-xl border border-theGray p-3 lg:h-64"
               >
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -46,7 +46,7 @@ const WatchlistPage = () => {
                       to={`/movie/${movie.id}`}
                       className="text-base font-semibold hover:text-white/70"
                     >
-                      <h2 className="text-xl font-bold">
+                      <h2 className="font-bold lg:text-xl">
                         {movie.original_title}
                       </h2>
                     </Link>
@@ -80,26 +80,13 @@ const WatchlistPage = () => {
                   <div className="space-y-2">
                     <button
                       onClick={() => handleDelete(movie.id)}
-                      className="flex w-full items-center justify-center gap-x-2 rounded-full bg-theYellow px-7 py-3 font-medium text-primary hover:bg-[#bb9c41] lg:py-1.5"
+                      className="flex w-full items-center justify-center gap-x-2 rounded-full bg-theYellow py-1 font-medium text-primary hover:bg-[#bb9c41] lg:py-1.5"
                     >
-                      {/* <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="size-7"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
-                      clipRule="evenodd"
-                    />
-                  </svg> */}
-                      {/* <p>Add to Watchlist</p> */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="size-7"
+                        className="size-6 lg:size-7"
                       >
                         <path
                           fillRule="evenodd"
@@ -108,9 +95,9 @@ const WatchlistPage = () => {
                         />
                       </svg>
 
-                      <p>In Watchlist</p>
+                      <p className="text-sm lg:text-base">In Watchlist</p>
                     </button>
-                    <p className="w-full cursor-pointer rounded-full px-2 py-2 text-center text-sm hover:bg-secondary/10">
+                    <p className="w-full cursor-pointer rounded-full py-1 text-center text-sm hover:bg-secondary/10 lg:py-2">
                       <Link to={`/movie/${movie.id}`}>View Details</Link>
                     </p>
                   </div>
