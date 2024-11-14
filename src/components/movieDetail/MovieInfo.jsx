@@ -19,12 +19,9 @@ const MovieInfo = ({
     setWatchlist(savedWatchlist);
   }, [watchlist]);
 
-  const addToWatchlist = (movie) => {
-    // Cek apakah movie sudah ada di watchlist
-    const isAlreadyInWatchlist = watchlist.some((item) => item.id === movie.id);
-
-    if (!isAlreadyInWatchlist) {
-      const updatedWatchlist = [...watchlist, movie];
+  const addToWatchlist = (movieId) => {
+    if (!watchlist.includes(movieId)) {
+      const updatedWatchlist = [...watchlist, movieId];
       setWatchlist(updatedWatchlist);
       localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
     } else {
@@ -40,7 +37,7 @@ const MovieInfo = ({
         alt={title}
       />
 
-      {/* <AddWatchlistSvg value={14} onAddWatchlist={() => addToWatchlist} /> */}
+      <AddWatchlistSvg value={14} onAddWatchlist={() => addToWatchlist} />
 
       <iframe
         className="order-1 col-span-7 h-56 w-full rounded-lg lg:order-none lg:h-[28rem] lg:w-8/12"

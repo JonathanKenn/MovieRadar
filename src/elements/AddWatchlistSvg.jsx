@@ -1,9 +1,9 @@
 import React from "react";
 
-const AddWatchlistSvg = ({ value, onAddWatchlist }) => {
+const AddWatchlistSvg = ({ value, onAddWatchlist, movieId }) => {
   return (
     <svg
-      onClick={onAddWatchlist}
+      onClick={() => onAddWatchlist(movieId)}
       className={`absolute -left-2 -top-0.5 w-${value} cursor-pointer text-[#24211E] opacity-75 transition hover:opacity-100`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 16 16"
