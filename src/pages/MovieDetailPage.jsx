@@ -72,25 +72,10 @@ const MovieDetailPage = () => {
         ></div>
 
         {/* header */}
-        <MovieHeader
-          title={apiDataMovie.title}
-          releaseDate={apiDataMovie.release_date}
-          runtime={apiDataMovie.runtime}
-          adult={apiDataMovie.adult}
-          tagline={apiDataMovie.tagline}
-        />
+        <MovieHeader movie={apiDataMovie} />
 
         {/* poster dan trailer */}
-        <MovieInfo
-          posterPath={apiDataMovie.poster_path}
-          trailerKey={apiDataTrailer?.key}
-          title={apiDataMovie.title}
-          voteAverage={apiDataMovie.vote_average}
-          voteCount={apiDataMovie.vote_count}
-          status={apiDataMovie.status}
-          popularity={apiDataMovie.popularity}
-          budget={apiDataMovie.budget}
-        />
+        <MovieInfo movie={apiDataMovie} trailerKey={apiDataTrailer?.key} />
 
         {/* spek */}
         <MovieGenreDesc

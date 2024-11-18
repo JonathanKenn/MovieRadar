@@ -2,16 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import AddWatchlistSvg from "../../elements/AddWatchlistSvg";
 
-const MovieInfo = ({
-  posterPath,
-  trailerKey,
-  title,
-  voteAverage,
-  voteCount,
-  status,
-  popularity,
-  budget,
-}) => {
+const MovieInfo = ({ movie, trailerKey }) => {
   const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
@@ -19,9 +10,12 @@ const MovieInfo = ({
     setWatchlist(savedWatchlist);
   }, [watchlist]);
 
-  const addToWatchlist = (movieId) => {
-    if (!watchlist.includes(movieId)) {
-      const updatedWatchlist = [...watchlist, movieId];
+  const addToWatchlist = (movie) => {
+    // Cek apakah movie sudah ada di watchlist
+    const isAlreadyInWatchlist = watchlist.some((item) => item.id === movie.id);
+
+    if (!isAlreadyInWatchlist) {
+      const updatedWatchlist = [...watchlist, movie];
       setWatchlist(updatedWatchlist);
       localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
     } else {
@@ -33,11 +27,14 @@ const MovieInfo = ({
     <div className="relative grid max-w-full grid-cols-7 gap-3 overflow-hidden lg:flex">
       <img
         className="poster-img order-2 col-start-1 col-end-4 w-full rounded-lg lg:order-none lg:w-[19rem]"
-        src={`https://image.tmdb.org/t/p/w500${posterPath}`}
-        alt={title}
+        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+        alt={movie.title}
       />
 
-      <AddWatchlistSvg value={14} onAddWatchlist={() => addToWatchlist} />
+      <AddWatchlistSvg
+        value={14}
+        onAddWatchlist={() => addToWatchlist(movie)}
+      />
 
       <iframe
         className="order-1 col-span-7 h-56 w-full rounded-lg lg:order-none lg:h-[28rem] lg:w-8/12"
@@ -47,7 +44,7 @@ const MovieInfo = ({
 
       <div className="spek-movie order-3 col-start-4 col-end-7 font-medium lg:order-none">
         <div className="mb-2 lg:mb-3">
-          <p className="text-sm text-theGray">Rating ({voteCount})</p>
+          <p className="text-sm text-theGray">Rating ({movie.vote_count})</p>
           <span className="flex text-theYellow">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,24 +59,24 @@ const MovieInfo = ({
               />
             </svg>
             <p className="ml-1 text-lg text-white">
-              {parseFloat(voteAverage).toFixed(1)} / 10
+              {parseFloat(movie.vote_average).toFixed(1)} / 10
             </p>
           </span>
         </div>
         <div className="mb-2 lg:mb-3">
           <p className="text-sm text-theGray">Status</p>
-          <p className="text-lg text-white">{status}</p>
+          <p className="text-lg text-white">{movie.status}</p>
         </div>
         <div className="mb-2 lg:mb-3">
           <p className="text-sm text-theGray">Popularity</p>
           <p className="text-lg text-white">
-            {parseFloat(popularity).toFixed(1)}
+            {parseFloat(movie.popularity).toFixed(1)}
           </p>
         </div>
         <div className="mb-2 lg:mb-3">
           <p className="text-sm text-theGray">Budget</p>
           <p className="text-lg text-white">
-            {budget ? `$${budget.toLocaleString("en-US")}` : "-"}
+            {movie.budget ? `$${movie.budget.toLocaleString("en-US")}` : "-"}
           </p>
         </div>
       </div>
