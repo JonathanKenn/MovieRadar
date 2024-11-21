@@ -58,7 +58,7 @@ const MovieDetailPage = () => {
         setCrew(creditsRes.data.crew);
       })
       .catch((error) => console.error(error));
-  });
+  }, []);
 
   return (
     <div>

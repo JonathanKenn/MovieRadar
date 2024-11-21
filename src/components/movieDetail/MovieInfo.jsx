@@ -8,7 +8,7 @@ const MovieInfo = ({ movie, trailerKey }) => {
   useEffect(() => {
     const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
     setWatchlist(savedWatchlist);
-  }, [watchlist]);
+  }, []);
 
   const addToWatchlist = (movie) => {
     // Cek apakah movie sudah ada di watchlist
