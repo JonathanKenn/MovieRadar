@@ -11,16 +11,16 @@ const MovieList = ({ title, category }) => {
   const [isAtEnd, setIsAtEnd] = useState(false);
   const [watchlist, setWatchlist] = useState([]);
 
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZjBiNjQxNzQwMTk2YjRjZGM4OTUwMjcxNGI3OTJmOSIsIm5iZiI6MTczMDAwNDIwOC43MDc3MzMsInN1YiI6IjY3MTc5ZTk2N2RjN2M2ZjI3ZDUxMjAxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.a4DbJ8GS_wbHuyzEeFCLZQLypdYWMcuYnmlS3cfLaqs",
-    },
-  };
-
   useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZjBiNjQxNzQwMTk2YjRjZGM4OTUwMjcxNGI3OTJmOSIsIm5iZiI6MTczMDAwNDIwOC43MDc3MzMsInN1YiI6IjY3MTc5ZTk2N2RjN2M2ZjI3ZDUxMjAxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.a4DbJ8GS_wbHuyzEeFCLZQLypdYWMcuYnmlS3cfLaqs",
+      },
+    };
+
     const url =
       category === "trending"
         ? "https://api.themoviedb.org/3/trending/movie/day?language=en-US"
@@ -29,7 +29,7 @@ const MovieList = ({ title, category }) => {
       .get(url, options)
       .then((res) => setApiData(res.data.results))
       .catch((err) => console.error(err));
-  });
+  }, [category]);
 
   const checkScrollPosition = () => {
     if (sliderRef.current) {
@@ -76,7 +76,7 @@ const MovieList = ({ title, category }) => {
   useEffect(() => {
     const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
     setWatchlist(savedWatchlist);
-  }, [watchlist]); // Load hanya sekali saat pertama kali render
+  }, []); // Load hanya sekali saat pertama kali render
 
   const addToWatchlist = (movie) => {
     // Cek apakah movie sudah ada di watchlist
@@ -86,6 +86,7 @@ const MovieList = ({ title, category }) => {
       const updatedWatchlist = [...watchlist, movie];
       setWatchlist(updatedWatchlist);
       localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
+      alert("Movie added to watchlist.");
     } else {
       alert("Movie sudah ada di watchlist.");
     }
@@ -131,10 +132,12 @@ const MovieList = ({ title, category }) => {
               value={12}
               onAddWatchlist={() => addToWatchlist(card)}
             />
-            <Link to={`/movie/${card.id}`}>
+            {/* <Link to={`/movie/${card.id}`}> */}
+            <Link to={`/movie/${encodeURIComponent(card.original_title)}`}>
               <img
                 src={`https://image.tmdb.org/t/p/w500${card.poster_path}`}
                 alt={card.original_title}
+                loading="lazy"
               />
             </Link>
             <figcaption className="absolute -bottom-14 w-full bg-gradient-to-t from-primary to-primary/50 py-1.5 text-center font-medium transition-all duration-200 group-hover:bottom-0">

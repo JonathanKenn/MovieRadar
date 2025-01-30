@@ -11,7 +11,8 @@ import DetailsMovie from "../components/movieDetail/DetailsMovie";
 import axios from "axios";
 
 const MovieDetailPage = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
+  const { slug } = useParams();
   const [apiDataTrailer, setApiDataTrailer] = useState({});
   const [apiDataMovie, setApiDataMovie] = useState({});
   const [crew, setCrew] = useState([]);
@@ -26,40 +27,81 @@ const MovieDetailPage = () => {
     },
   };
 
+  // useEffect(() => {
+  //   // Mendapatkan data film, trailer, dan kredit
+  //   axios
+  //     .get(`https://api.themoviedb.org/3/movie/${slug}?language=en-US`, options)
+  //     .then((movieRes) => {
+  //       setApiDataMovie(movieRes.data);
+  //     })
+  //     .catch((error) => console.error(error));
+
+  //   axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`,
+  //       options,
+  //     )
+  //     .then((videoRes) => {
+  //       const trailer = videoRes.data.results.find(
+  //         (video) => video.type === "Trailer",
+  //       );
+  //       setApiDataTrailer(trailer);
+  //     })
+  //     .catch((error) => console.error(error));
+
+  //   axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/movie/${movie.id}/credits?language=en-US`,
+  //       options,
+  //     )
+  //     .then((creditsRes) => {
+  //       setCast(creditsRes.data.cast);
+  //       setCrew(creditsRes.data.crew);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, []);
+
   useEffect(() => {
-    // Mendapatkan data film, trailer, dan kredit
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
-      .then((movieRes) => {
-        setApiDataMovie(movieRes.data);
-      })
-      .catch((error) => console.error(error));
-
+    // Mencari film berdasarkan title untuk mendapatkan id
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+        `https://api.themoviedb.org/3/search/movie?query=${slug}&language=en-US`,
         options,
       )
-      .then((videoRes) => {
-        const trailer = videoRes.data.results.find(
-          (video) => video.type === "Trailer",
-        );
-        setApiDataTrailer(trailer);
+      .then((res) => {
+        const movie = res.data.results[0];
+        if (movie) {
+          setApiDataMovie(movie);
+
+          // Mengambil trailer berdasarkan id film
+          axios
+            .get(
+              `https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`,
+              options,
+            )
+            .then((videoRes) => {
+              const trailer = videoRes.data.results.find(
+                (video) => video.type === "Trailer",
+              );
+              setApiDataTrailer(trailer);
+            })
+            .catch((error) => console.error(error));
+
+          // Mengambil cast dan crew berdasarkan id film
+          axios
+            .get(
+              `https://api.themoviedb.org/3/movie/${movie.id}/credits?language=en-US`,
+              options,
+            )
+            .then((creditsRes) => {
+              setCast(creditsRes.data.cast);
+              setCrew(creditsRes.data.crew);
+            })
+            .catch((error) => console.error(error));
+        }
       })
       .catch((error) => console.error(error));
-
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
-        options,
-      )
-      .then((creditsRes) => {
-        setCast(creditsRes.data.cast);
-        setCrew(creditsRes.data.crew);
-      })
-      .catch((error) => console.error(error));
-  }, []);
-
+  });
   return (
     <div>
       <Navbar />

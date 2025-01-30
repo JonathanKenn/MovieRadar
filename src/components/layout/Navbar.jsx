@@ -261,46 +261,72 @@ const Navbar = () => {
             ref={searchRef} // Attach ref to the overlay
             className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-[#1f1f1f] p-4 lg:hidden"
           >
-            <div className="w-full max-w-lg">
-              <input
-                className="w-full rounded-md bg-transparent px-4 py-2 text-secondary shadow-sm placeholder:italic placeholder:text-slate-300 focus:border-theYellow focus:outline-none focus:ring-1 focus:ring-theYellow sm:text-sm lg:border lg:border-slate-300"
-                placeholder="Search"
-                type="text"
-                name="search"
-              />
-            </div>
-            <button
-              onClick={closeSearch}
-              className="absolute right-8 text-xl text-secondary"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18 18 6M6 6l12 12"
+            <div className="flex w-full max-w-lg">
+              <div className="flex w-full">
+                <input
+                  className="w-full rounded-l-md bg-transparent px-4 py-2 text-secondary shadow-sm placeholder:italic placeholder:text-slate-300 focus:border-theYellow focus:outline-none focus:ring-1 focus:ring-theYellow sm:text-sm lg:border lg:border-slate-300"
+                  placeholder="Search"
+                  type="text"
+                  name="search"
                 />
-              </svg>
-            </button>
+
+                <button className="inset-y-0 right-0 rounded-r-md bg-theYellow px-3 hover:bg-[#bb9c41] lg:absolute lg:items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    className="size-6 text-black"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <button
+                onClick={closeSearch}
+                className="relavite ml-3 text-xl text-secondary"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         )}
 
         {/* Regular Search and Right-side Icons for Desktop */}
         <div className="relative hidden w-full lg:block">
-          <span className="inset-y-0 left-0 flex justify-end pl-3 lg:absolute lg:items-center">
+          <input
+            className="absolute z-30 w-full rounded-md border border-slate-300 bg-white py-2 text-primary shadow-sm placeholder:italic placeholder:text-slate-300 focus:border-theYellow focus:outline-none focus:ring-1 focus:ring-theYellow sm:text-sm lg:static lg:pl-4"
+            placeholder="Search Movie"
+            type="text"
+            name="search"
+          />
+          <button className="inset-y-0 right-0 rounded-r-md bg-theYellow px-3 hover:bg-[#bb9c41] lg:absolute lg:items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="2"
               stroke="currentColor"
-              className="size-6 text-secondary lg:text-slate-300"
+              className="size-6 text-black"
             >
               <path
                 strokeLinecap="round"
@@ -308,13 +334,7 @@ const Navbar = () => {
                 d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
               />
             </svg>
-          </span>
-          <input
-            className="absolute z-30 w-full rounded-md border border-slate-300 bg-white py-2 text-primary shadow-sm placeholder:italic placeholder:text-slate-300 focus:border-theYellow focus:outline-none focus:ring-1 focus:ring-theYellow sm:text-sm lg:static lg:block lg:pl-11"
-            placeholder="Search"
-            type="text"
-            name="search"
-          />
+          </button>
         </div>
 
         <Link

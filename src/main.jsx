@@ -28,7 +28,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/movie/:id",
+    // path: "/movie/:id",
+    path: "/movie/:slug",
     errorElement: <ErrorPage />,
     element: <MovieDetail />,
   },
